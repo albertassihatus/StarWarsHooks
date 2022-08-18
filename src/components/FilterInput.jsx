@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 function FilterInput() {
-  const { handleChange } = useContext(AppContext);
+  const { handleNameChange } = useContext(AppContext);
   return (
     <input
       type="text"
       data-testid="name-filter"
-      onChange={ handleChange }
+      onChange={ handleNameChange }
     />
   );
 }

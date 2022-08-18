@@ -3,7 +3,7 @@ import AppContext from '../context/AppContext';
 
 function Table() {
   const { filteredData } = useContext(AppContext);
-  //   console.log(planets);
+
   return (
     <div>
       <table>
