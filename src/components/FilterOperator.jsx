@@ -3,31 +3,35 @@ import AppContext from '../context/AppContext';
 
 function FilterOperator() {
   const { handleNumericFilter,
-    onChangeCollumFilter,
+    setColumFilter,
     onChangeOperatorFilter,
     onChangeValueFilter,
     numericFiltered,
     numberValue,
     deleteFilter,
+    newArrOptions,
   } = useContext(AppContext);
+
+  const operatorOptions = ['maior que', 'menor que', 'igual a'];
 
   return (
     <div>
       <div>
-        <div>
+        <label htmlFor="filter">
           Coluna
-        </div>
-        <select
-          data-testid="column-filter"
-          onChange={ onChangeCollumFilter }
-        >
-          <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
-
-        </select>
+          <select
+            data-testid="column-filter"
+            onChange={ ({ target }) => setColumFilter(target.value) }
+          >
+            {
+              newArrOptions.map((item) => (
+                <option key={ item } value={ item }>
+                  {item}
+                </option>
+              ))
+            }
+          </select>
+        </label>
       </div>
       <div>
         <div>
@@ -37,9 +41,12 @@ function FilterOperator() {
           data-testid="comparison-filter"
           onChange={ onChangeOperatorFilter }
         >
-          <option>maior que</option>
-          <option>menor que</option>
-          <option>igual a</option>
+          {
+            operatorOptions.map((item) => (
+              <option key={ item }>{item}</option>
+            ))
+          }
+          ;
         </select>
       </div>
       <div>
@@ -62,25 +69,25 @@ function FilterOperator() {
       </div>
       <div>
         {numericFiltered.map((filter, index) => (
-          <p
-            key={ `${filter.columFilter}-${index}` }
+          <div key={ `${filter.columFilter}-${index}` }>
+            <p>
+              {`${filter.columFilter}`}
+              {' '}
+              {`${filter.operatorFilter}`}
+              {' '}
+              {`${filter.numberValue}`}
+              <button
+                type="button"
+                onClick={ () => deleteFilter(index) }
+              >
+                APAGAR
 
-          >
-            {`${filter.columFilter}`}
-            {' '}
-            {`${filter.operatorFilter}`}
-            {' '}
-            {`${filter.numberValue}`}
-            <button
-              type="button"
-              onClick={ () => deleteFilter(index) }
-            >
-              APAGAR
-
-            </button>
-          </p>
+              </button>
+            </p>
+          </div>
         ))}
       </div>
+
     </div>
   );
 }

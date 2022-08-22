@@ -7,12 +7,23 @@ function AppProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [filterName, setFilterName] = useState('');
+  //
 
   // estados e filtros dos filtros
   const [numericFiltered, setNumericFiltered] = useState([]);
 
+  // filterSelectsCollum
+  const [updateColumFilter] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water']);
+
+  const [newArrOptions, setNewArrOptions] = useState([]);
   // inputs:
-  const [columFilter, setColumFilter] = useState('population');
+  const [columFilter, setColumFilter] = useState(updateColumFilter[0]);
+
   const [operatorFilter, setOperatorFilter] = useState('maior que');
   const [numberValue, setNumberValue] = useState(0);
 
@@ -56,10 +67,6 @@ function AppProvider({ children }) {
     setFilterName(target.value.toLowerCase());
   };
 
-  const onChangeCollumFilter = ({ target }) => {
-    setColumFilter(target.value);
-  };
-
   const onChangeOperatorFilter = ({ target }) => {
     setOperatorFilter(target.value);
   };
@@ -75,8 +82,17 @@ function AppProvider({ children }) {
       numberValue,
     };
     setNumericFiltered([...numericFiltered, newNumericFilter]);
-    console.log(setNumericFiltered);
   };
+
+  useEffect(() => {
+    setNewArrOptions(updateColumFilter.filter(
+      (element) => !numericFiltered.find((item) => item.columFilter === element),
+    ));
+  }, [numericFiltered]);
+
+  useEffect(() => {
+    setColumFilter(newArrOptions[0]);
+  }, [newArrOptions]);
 
   const deleteFilter = (index) => {
     setNumericFiltered(
@@ -91,14 +107,15 @@ function AppProvider({ children }) {
         handleNameChange,
         filteredData,
         handleNumericFilter,
-        onChangeCollumFilter,
         onChangeOperatorFilter,
         onChangeValueFilter,
         numericFiltered,
         setNumericFiltered,
         deleteFilter,
         numberValue,
-
+        columFilter,
+        setColumFilter,
+        newArrOptions,
       } }
     >
       {children}

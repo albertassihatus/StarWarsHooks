@@ -52,7 +52,7 @@ function Table() {
         </thead>
         <tbody>
           {
-            filteredData.length > 0 && filteredData.map((planet) => (
+            filteredData.map((planet) => (
               <tr key={ planet.name }>
                 <th scope="row">{planet.name}</th>
                 <th scope="row">{planet.rotation_period}</th>
