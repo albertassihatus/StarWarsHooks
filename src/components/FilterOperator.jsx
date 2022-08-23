@@ -10,6 +10,7 @@ function FilterOperator() {
     numberValue,
     deleteFilter,
     newArrOptions,
+    removeAll,
   } = useContext(AppContext);
 
   const operatorOptions = ['maior que', 'menor que', 'igual a'];
@@ -69,7 +70,10 @@ function FilterOperator() {
       </div>
       <div>
         {numericFiltered.map((filter, index) => (
-          <div key={ `${filter.columFilter}-${index}` }>
+          <div
+            key={ `${filter.columFilter}-${index}` }
+            data-testid="filter"
+          >
             <p>
               {`${filter.columFilter}`}
               {' '}
@@ -80,13 +84,21 @@ function FilterOperator() {
                 type="button"
                 onClick={ () => deleteFilter(index) }
               >
-                APAGAR
+                X
 
               </button>
             </p>
           </div>
         ))}
       </div>
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ () => removeAll() }
+      >
+        Remover todas filtragens
+
+      </button>
 
     </div>
   );

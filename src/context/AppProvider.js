@@ -100,6 +100,12 @@ function AppProvider({ children }) {
     );
   };
 
+  const removeAll = () => {
+    console.log('cldsf');
+    setNumericFiltered([]);
+    setPlanets(planets);
+  };
+
   return (
     <AppContext.Provider
       value={ {
@@ -116,6 +122,7 @@ function AppProvider({ children }) {
         columFilter,
         setColumFilter,
         newArrOptions,
+        removeAll,
       } }
     >
       {children}
