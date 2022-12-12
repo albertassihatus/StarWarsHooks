@@ -101,7 +101,6 @@ function AppProvider({ children }) {
   };
 
   const removeAll = () => {
-    console.log('cldsf');
     setNumericFiltered([]);
     setPlanets(planets);
   };
